@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import path from 'node:path';
 
+import { t } from '../i18n';
 import type {
     SpeedMetrics,
     TokenMetrics,
@@ -130,18 +131,18 @@ export async function getSessionDuration(transcriptPath: string): Promise<string
         const totalMinutes = Math.floor(durationMs / (1000 * 60));
 
         if (totalMinutes < 1) {
-            return '<1m';
+            return `<1${t('m')}`;
         }
 
         const hours = Math.floor(totalMinutes / 60);
         const minutes = totalMinutes % 60;
 
         if (hours === 0) {
-            return `${minutes}m`;
+            return `${minutes}${t('m')}`;
         } else if (minutes === 0) {
-            return `${hours}hr`;
+            return `${hours}${t('hr')}`;
         } else {
-            return `${hours}hr ${minutes}m`;
+            return `${hours}${t('hr')} ${minutes}${t('m')}`;
         }
     } catch {
         return null;

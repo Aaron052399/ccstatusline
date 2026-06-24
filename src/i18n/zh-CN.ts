@@ -304,6 +304,11 @@ export const zhCN: Record<string, string> = {
     'Link': '链接',
     'Displays a clickable terminal hyperlink using OSC 8': '使用 OSC 8 显示可点击的终端超链接',
 
+    // ─── Time format labels ───────────────────────────────────
+    'hr': '小时',
+    'm': '分钟',
+    'd': '天',
+
     // ─── Keybind labels ───────────────────────────────────────
     '(p)rogress toggle': '(p)进度条切换',
     '(u)sed/remaining': '(u)已用/剩余',

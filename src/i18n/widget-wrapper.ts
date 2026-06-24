@@ -40,12 +40,21 @@ const RENDER_PREFIXES: Record<string, string> = {
 };
 
 function translateRenderOutput(output: string): string {
+    // First try prefix match
     for (const [en, zh] of Object.entries(RENDER_PREFIXES)) {
         if (output.startsWith(en)) {
             return zh + output.slice(en.length);
         }
     }
-    return output;
+
+    // Translate time format patterns: "2hr 15m", "1hr", "30m", "<1m", "2hr 15m" etc.
+    // Only replace when preceded by digit or at start, to avoid mangling words
+    let result = output;
+    result = result.replace(/(\d+)hr\b/g, `$1${t('hr')}`);
+    result = result.replace(/(\d+)m\b/g, `$1${t('m')}`);
+    result = result.replace(/<1m\b/g, `<1${t('m')}`);
+
+    return result;
 }
 
 /**
