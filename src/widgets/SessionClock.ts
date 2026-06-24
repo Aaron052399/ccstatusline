@@ -5,25 +5,26 @@ import type {
     WidgetEditorDisplay,
     WidgetItem
 } from '../types/Widget';
+import { t } from '../i18n';
 
 function formatDurationFromMs(durationMs: number): string {
     const totalMinutes = Math.floor(durationMs / (1000 * 60));
 
     if (totalMinutes < 1) {
-        return '<1m';
+        return `<1${t('m')}`;
     }
 
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
 
     if (hours === 0) {
-        return `${minutes}m`;
+        return `${minutes}${t('m')}`;
     }
     if (minutes === 0) {
-        return `${hours}hr`;
+        return `${hours}${t('hr')}`;
     }
 
-    return `${hours}hr ${minutes}m`;
+    return `${hours}${t('hr')} ${minutes}${t('m')}`;
 }
 
 export class SessionClockWidget implements Widget {
@@ -37,7 +38,7 @@ export class SessionClockWidget implements Widget {
 
     render(item: WidgetItem, context: RenderContext, settings: Settings): string | null {
         if (context.isPreview) {
-            return item.rawValue ? '2hr 15m' : 'Session: 2hr 15m';
+            return item.rawValue ? `2${t('hr')} 15${t('m')}` : `${t('Session: ')}2${t('hr')} 15${t('m')}`;
         }
 
         const durationMs = context.data?.cost?.total_duration_ms;
