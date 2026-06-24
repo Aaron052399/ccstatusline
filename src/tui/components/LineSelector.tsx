@@ -10,6 +10,7 @@ import React, {
     useState
 } from 'react';
 
+import { t } from '../../i18n';
 import type { Settings } from '../../types/Settings';
 import type { WidgetItem } from '../../types/Widget';
 
@@ -152,7 +153,7 @@ const LineSelector: React.FC<LineSelectorProps> = ({
     if (isThemeManaged) {
         return (
             <Box flexDirection='column'>
-                <Text bold>{title ?? 'Select Line'}</Text>
+                <Text bold>{title ?? t('Select Line')}</Text>
                 <Box marginTop={1}>
                     <Text color='yellow'>
                         ⚠ Colors are currently managed by the Powerline theme:

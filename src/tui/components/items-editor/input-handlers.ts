@@ -1,3 +1,4 @@
+import { t } from '../../../i18n';
 import type {
     CustomKeybind,
     Widget,
@@ -75,7 +76,7 @@ export function normalizePickerState(
         : (filteredCategories[0] ?? null);
 
     const hasTopLevelSearch = state.level === 'category' && state.categoryQuery.trim().length > 0;
-    const effectiveCategory = hasTopLevelSearch ? 'All' : (selectedCategory ?? 'All');
+    const effectiveCategory = hasTopLevelSearch ? t('All') : (selectedCategory ?? t('All'));
     const effectiveQuery = hasTopLevelSearch ? state.categoryQuery : state.widgetQuery;
     const filteredWidgets = filterWidgetCatalog(widgetCatalog, effectiveCategory, effectiveQuery);
     const hasSelectedType = state.selectedType
@@ -110,10 +111,10 @@ function getPickerViewState(
         : (filteredCategories[0] ?? null);
     const hasTopLevelSearch = widgetPicker.level === 'category' && widgetPicker.categoryQuery.trim().length > 0;
     const topLevelSearchEntries = hasTopLevelSearch
-        ? filterWidgetCatalog(widgetCatalog, 'All', widgetPicker.categoryQuery)
+        ? filterWidgetCatalog(widgetCatalog, t('All'), widgetPicker.categoryQuery)
         : [];
     const topLevelSelectedEntry = topLevelSearchEntries.find(entry => entry.type === widgetPicker.selectedType) ?? topLevelSearchEntries[0];
-    const filteredWidgets = filterWidgetCatalog(widgetCatalog, selectedCategory ?? 'All', widgetPicker.widgetQuery);
+    const filteredWidgets = filterWidgetCatalog(widgetCatalog, selectedCategory ?? t('All'), widgetPicker.widgetQuery);
     const selectedEntry = filteredWidgets.find(entry => entry.type === widgetPicker.selectedType) ?? filteredWidgets[0];
 
     return {

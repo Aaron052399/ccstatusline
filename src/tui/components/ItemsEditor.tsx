@@ -5,6 +5,7 @@ import {
 } from 'ink';
 import React, { useState } from 'react';
 
+import { t } from '../../i18n';
 import type { Settings } from '../../types/Settings';
 import type {
     CustomKeybind,
@@ -51,7 +52,7 @@ export const ItemsEditor: React.FC<ItemsEditorProps> = ({ widgets, onUpdate, onB
     const separatorChars = ['|', '-', ',', ' '];
 
     const widgetCatalog = getWidgetCatalog(settings);
-    const widgetCategories = ['All', ...getWidgetCatalogCategories(widgetCatalog)];
+    const widgetCategories = [t('All'), ...getWidgetCatalogCategories(widgetCatalog)];
 
     // Get a unique background color for powerline mode
     const getUniqueBackgroundColor = (insertIndex: number): string | undefined => {
@@ -114,7 +115,7 @@ export const ItemsEditor: React.FC<ItemsEditorProps> = ({ widgets, onUpdate, onB
         setWidgetPicker(normalizePickerState({
             action,
             level: 'category',
-            selectedCategory: 'All',
+            selectedCategory: t('All'),
             categoryQuery: '',
             widgetQuery: '',
             selectedType
@@ -214,7 +215,7 @@ export const ItemsEditor: React.FC<ItemsEditorProps> = ({ widgets, onUpdate, onB
             return `Separator ${charDisplay}`;
         }
         if (widget.type === 'flex-separator') {
-            return 'Flex Separator';
+            return t('Flex Separator');
         }
 
         // Handle regular widgets - delegate to widget for display
@@ -239,13 +240,13 @@ export const ItemsEditor: React.FC<ItemsEditorProps> = ({ widgets, onUpdate, onB
             : (pickerCategories[0] ?? null))
         : null;
     const topLevelSearchEntries = widgetPicker?.level === 'category' && widgetPicker.categoryQuery.trim().length > 0
-        ? filterWidgetCatalog(widgetCatalog, 'All', widgetPicker.categoryQuery)
+        ? filterWidgetCatalog(widgetCatalog, t('All'), widgetPicker.categoryQuery)
         : [];
     const selectedTopLevelSearchEntry = widgetPicker
         ? (topLevelSearchEntries.find(entry => entry.type === widgetPicker.selectedType) ?? topLevelSearchEntries[0])
         : null;
     const pickerEntries = widgetPicker
-        ? filterWidgetCatalog(widgetCatalog, selectedPickerCategory ?? 'All', widgetPicker.widgetQuery)
+        ? filterWidgetCatalog(widgetCatalog, selectedPickerCategory ?? t('All'), widgetPicker.widgetQuery)
         : [];
     const selectedPickerEntry = widgetPicker
         ? (pickerEntries.find(entry => entry.type === widgetPicker.selectedType) ?? pickerEntries[0])
@@ -294,10 +295,10 @@ export const ItemsEditor: React.FC<ItemsEditorProps> = ({ widgets, onUpdate, onB
     // Build custom keybinds text
     const customKeybindsText = customKeybinds.map(kb => kb.label).join(', ');
     const pickerActionLabel = widgetPicker?.action === 'add'
-        ? 'Add Widget'
+        ? t('Add Widget')
         : widgetPicker?.action === 'insert'
-            ? 'Insert Widget'
-            : 'Change Widget Type';
+            ? t('Insert Widget')
+            : t('Change Widget Type');
 
     // If custom editor is active, render it instead of the normal UI
     if (customEditorWidget?.impl.renderEditor) {
@@ -359,8 +360,8 @@ export const ItemsEditor: React.FC<ItemsEditorProps> = ({ widgets, onUpdate, onB
                             ⚠
                             {' '}
                             {settings.powerline.enabled
-                                ? 'Powerline mode active: manual separators disabled'
-                                : 'Default separator active: manual separators disabled'}
+                                ? t('Powerline mode active: manual separators disabled')
+                                : t('Default separator active: manual separators disabled')}
                         </Text>
                     </Box>
                 )}
@@ -470,7 +471,7 @@ export const ItemsEditor: React.FC<ItemsEditorProps> = ({ widgets, onUpdate, onB
                                             </Box>
                                         );
                                     })}
-                                    {selectedPickerCategory === 'All' && (
+                                    {selectedPickerCategory === t('All') && (
                                         <Box marginTop={1} paddingLeft={2}>
                                             <Text dimColor>Search across all widget categories.</Text>
                                         </Box>
@@ -561,7 +562,7 @@ export const ItemsEditor: React.FC<ItemsEditorProps> = ({ widgets, onUpdate, onB
                                                 return 'Expands to fill available terminal width';
                                             } else {
                                                 const widgetImpl = getWidget(currentWidget.type);
-                                                return widgetImpl ? widgetImpl.getDescription() : 'Unknown widget type';
+                                                return widgetImpl ? widgetImpl.getDescription() : t('Unknown widget type');
                                             }
                                         })()}
                                     </Text>

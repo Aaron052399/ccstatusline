@@ -5,6 +5,7 @@ import {
 } from 'ink';
 import React, { useState } from 'react';
 
+import { t } from '../../i18n';
 import type { InstallationMetadata } from '../../types/Settings';
 import {
     CCSTATUSLINE_COMMANDS,
@@ -51,12 +52,12 @@ function getPinnedDescription(currentVersion: string): string {
 function getStyleItems(currentVersion: string): ListEntry<InstallUpdateStyle>[] {
     return [
         {
-            label: 'Pinned global install',
+            label: t('Pinned global install'),
             value: 'pinned',
             description: getPinnedDescription(currentVersion)
         },
         {
-            label: 'Auto-update',
+            label: t('Auto-update'),
             value: 'auto-update',
             description: AUTO_UPDATE_DESCRIPTION
         }

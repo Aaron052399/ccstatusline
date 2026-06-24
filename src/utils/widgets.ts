@@ -1,3 +1,5 @@
+import { t } from '../i18n';
+import { translateWidget } from '../i18n/widget-wrapper';
 import type { Settings } from '../types/Settings';
 import type {
     Widget,
@@ -16,9 +18,9 @@ import {
 
 export { getMatchSegments } from './fuzzy';
 
-// Create widget registry
+// Create widget registry — wrap each widget with translateWidget for i18n
 const widgetRegistry = new Map<WidgetItemType, Widget>(
-    WIDGET_MANIFEST.map((entry): [WidgetItemType, Widget] => [entry.type, entry.create()])
+    WIDGET_MANIFEST.map((entry): [WidgetItemType, Widget] => [entry.type, translateWidget(entry.create())])
 );
 const layoutWidgetTypes = new Set<WidgetItemType>(LAYOUT_WIDGET_MANIFEST.map(entry => entry.type));
 
@@ -64,9 +66,9 @@ const layoutCatalogEntries = new Map<WidgetItemType, WidgetCatalogEntry>(
         entry.type,
         {
             type: entry.type,
-            displayName: entry.displayName,
-            description: entry.description,
-            category: entry.category,
+            displayName: t(entry.displayName),
+            description: t(entry.description),
+            category: t(entry.category),
             searchText: `${entry.displayName} ${entry.description} ${entry.type}`.toLowerCase()
         }
     ])
@@ -109,7 +111,7 @@ export function getWidgetCatalogCategories(catalog: WidgetCatalogEntry[]): strin
 }
 
 export function filterWidgetCatalog(catalog: WidgetCatalogEntry[], category: string, query: string): WidgetCatalogEntry[] {
-    const categoryFiltered = category === 'All'
+    const categoryFiltered = (category === 'All' || category === t('All'))
         ? [...catalog]
         : catalog.filter(entry => entry.category === category);
 

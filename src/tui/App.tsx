@@ -13,6 +13,7 @@ import React, {
     useState
 } from 'react';
 
+import { t } from '../i18n';
 import type {
     InstallationMetadata,
     ResolvedInstallationMetadata,
@@ -140,7 +141,7 @@ type FlowNoticeProps = FlowNoticeState & { onContinue: () => void };
 
 const NOTICE_ITEMS: ListEntry<string>[] = [
     {
-        label: 'Continue',
+        label: t('Continue'),
         value: 'continue'
     }
 ];
@@ -207,7 +208,7 @@ function getPinnedMismatchItems(
     }
 
     items.push({
-        label: 'Exit',
+        label: t('Exit'),
         value: 'exit',
         description: `Relaunch manually with ${mismatch.relaunchCommand}`
     });
@@ -656,7 +657,7 @@ export const App: React.FC = () => {
                         if (resolutionWarning) {
                             setFlashMessage(null);
                             setFlowNotice({
-                                title: 'Install Complete',
+                                title: t('Install Complete'),
                                 message: `Installed to Claude Code.\n\n${resolutionWarning}`,
                                 color: 'yellow',
                                 continueScreen: 'main'
@@ -734,7 +735,7 @@ export const App: React.FC = () => {
                     if (resolutionWarning) {
                         setFlashMessage(null);
                         setFlowNotice({
-                            title: 'Update Complete',
+                            title: t('Update Complete'),
                             message: `Global package updated.\n\n${resolutionWarning}`,
                             color: 'yellow',
                             continueScreen: 'updates'
@@ -801,7 +802,7 @@ export const App: React.FC = () => {
             if (resolutionWarning) {
                 setFlashMessage(null);
                 setFlowNotice({
-                    title: 'Update Complete',
+                    title: t('Update Complete'),
                     message: `Global package updated.\n\n${resolutionWarning}`,
                     color: 'yellow',
                     continueScreen: 'main'
@@ -1108,7 +1109,7 @@ export const App: React.FC = () => {
                             setScreen('main');
                         }}
                         initialSelection={menuSelections.lines}
-                        title='Select Line to Edit Items'
+                        title={t('Select Line to Edit Items')}
                         allowEditing={true}
                     />
                 )}
@@ -1140,7 +1141,7 @@ export const App: React.FC = () => {
                             setScreen('main');
                         }}
                         initialSelection={menuSelections.lines}
-                        title='Select Line to Edit Colors'
+                        title={t('Select Line to Edit Colors')}
                         blockIfPowerlineActive={true}
                         settings={settings}
                         allowEditing={false}
